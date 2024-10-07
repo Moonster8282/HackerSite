@@ -1,0 +1,28 @@
+version: '3'
+ 
+services:
+  db:
+    image: mysql:9.0  # 이미지 이름을 명시해서 지정 (Dockerfile이 없어도 실행 가능)
+    container_name: mysql
+    environment:   # 환경 변수 설정
+      MYSQL_USER: sekuid
+      MYSQL_ROOT_PASSWORD: sekupw
+      MYSQL_DATABASE: mydb
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - 3307:3306
+    volumes:
+      - ./data/:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql #schema.sql 실행을 위한 설정. docker-compose.yml과 schema.sql이 같은 루트 경로에 있어야 한다.(경로 수정 가능)
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./hackersite:/var/www/html/
+    ports:
+      - 5000:80
