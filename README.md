@@ -13,13 +13,7 @@ Main Page
 Login Page
 <img src="img/login.png">
 
-My Page
-<img src="img/mypage.png">
-
 Write Page
 <img src="img/write.png">
-
-Board List Page
-<img src="img/board.png">
 
 There are more pages that have critical security problems.
